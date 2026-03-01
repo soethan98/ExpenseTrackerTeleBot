@@ -2,8 +2,7 @@ import 'dotenv/config';
 import express, { json } from 'express';
 import TelegramBot from 'node-telegram-bot-api';
 import { Groq } from 'groq-sdk';
-const { Client } = require('@notionhq/client');
-
+import { Client } from '@notionhq/client';
 
 const app = express();
 app.use(json());
