@@ -1,8 +1,9 @@
 import 'dotenv/config';
 import express, { json } from 'express';
 import TelegramBot from 'node-telegram-bot-api';
-import { Client } from '@notionhq/client';
 import { Groq } from 'groq-sdk';
+const { Client } = require('@notionhq/client');
+
 
 const app = express();
 app.use(json());
@@ -70,8 +71,8 @@ function parseExpense(text) {
 // Query Notion for existing entry
 async function findExistingEntry(description, date) {
   try {
-    const response = await notion.databases.retrieve({
-      database_id: process.env.NOTION_DATABASE_ID,
+    const response = await notion.dataSources.query({
+    data_source_id: process.env.DATASOURCE_ID,
       filter: {
         and: [
           {
