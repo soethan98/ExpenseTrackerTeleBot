@@ -89,6 +89,9 @@ async function findExistingEntry(description, date) {
         ]
       }
     });
+
+        console.log(`Search results for "${description}" on ${date}:`, response.results.length);
+
     
     return response.results.length > 0 ? response.results[0] : null;
   } catch (error) {
@@ -163,6 +166,13 @@ async function handleMessage(msg) {
   
   // Get today's date in YYYY-MM-DD format
   const today = new Date().toISOString().split('T')[0];
+
+    
+  console.log('=== NEW MESSAGE ===');
+  console.log('Description:', expense.description);
+  console.log('Amount:', expense.amount);
+  console.log('Date (ISO):', today);
+  console.log('Category:', category);
   
   // Check if entry exists for this description today
   const existing = await findExistingEntry(expense.description, today);
