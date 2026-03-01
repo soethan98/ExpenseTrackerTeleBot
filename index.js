@@ -114,9 +114,6 @@ async function createNotionEntry(description, category, amount, date) {
         },
         'Date': {
           date: { start: date }
-        },
-        'Transaction Type': {
-          select: { name: 'Expense' }
         }
       }
     });
