@@ -70,7 +70,7 @@ function parseExpense(text) {
 // Query Notion for existing entry
 async function findExistingEntry(description, date) {
   try {
-    const response = await notion.databases.query({
+    const response = await notion.databases.retrieve({
       database_id: process.env.NOTION_DATABASE_ID,
       filter: {
         and: [
