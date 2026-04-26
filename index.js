@@ -112,15 +112,27 @@ function formatDateDisplay(isoDate) {
 
 // Parse expense message
 function parseExpense(text) {
-  // Match patterns like "Meal 3.5" or "Meal $3.5" or "Meal: $3.5"
-  const match = text.match(/^(.+?)[\s:]*\$?(\d+\.?\d*)\s*$/i);
+  // First, check if text exists and is not empty
+  if (!text || typeof text !== 'string') return null;
+
+  // Match patterns: "Description $Amount [Date]"
+  // Supports: "Meal 3.5", "Meal $3.5", "Meal $3.5 15/03", "Meal $3.5 15/03/2026"
+  const match = text.match(/^(.+?)[\s:]*\$?(\d+\.?\d*)\s*(.*)$/i);
 
   if (!match) return null;
 
-  const description = match[1].trim();
-  const amount = parseFloat(match[2]);
-  const dateStr = match[3].trim();
-
+  const description = match[1] ? match[1].trim() : null;
+  const amountStr = match[2] ? match[2].trim() : null;
+  const dateStr = match[3] ? match[3].trim() : '';
+  
+  // Validate description and amount exist
+  if (!description || !amountStr) return null;
+  
+  const amount = parseFloat(amountStr);
+  
+  // Validate amount is a valid number
+  if (isNaN(amount) || amount <= 0) return null;
+  
   let date = null;
 
   if (dateStr) {
